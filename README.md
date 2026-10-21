@@ -10,10 +10,11 @@ Shadowrocket -> Config -> + -> Import from URL:
 https://raw.githubusercontent.com/iam-otakun/shadowrocket-config/main/Shadowrocket-Fred.conf
 ```
 
-Set it as the active config after importing. To update later, tap the update/download action on this config in Shadowrocket — it re-fetches the latest version from this repo.
+Set it as the active config after importing, then pick a node on the home page — all proxy traffic uses that selected node (built-in PROXY policy). To update later, tap the update action on this config in Shadowrocket; it re-fetches the latest version from this repo.
 
-## Contents
+## Design (v2)
 
-- Split rules ported from a mihomo (Clash Meta) config: domestic/Alibaba direct, AI services via US group, everything else via proxy, GEOIP CN direct fallback.
-- DNS anti-leak: IP-form DoH only (1.1.1.1 / 8.8.8.8), no system resolver, hijack-dns for hardcoded DNS, IPv6 off.
-- Nodes are NOT in this file: proxy groups collect imported nodes by name pattern automatically.
+- Skeleton: Mini-AntiLeak [General]/DNS + ACL4SSR rule sets (proven in daily use).
+- No proxy groups anywhere: v1's regex-built groups stayed empty in Shadowrocket and black-holed all foreign traffic. FINAL points at the built-in PROXY instead.
+- Inline lists ported from a mihomo config: Alibaba ecosystem direct (39 domains), AI services (23 domains) to PROXY — every node in the setup is US-based, so AI region requirements are satisfied by any selected node.
+- overbridgenet.com hard-rejected at the top.
